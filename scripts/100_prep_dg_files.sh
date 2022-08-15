@@ -33,7 +33,7 @@ echo "ORACLE_SID       : $ORACLE_SID"
 echo "PRIMARY_HOSTNAME : $PRIMARY_HOSTNAME"
 echo "STANDBY_HOSTNAME : $STANDBY_HOSTNAME"
 echo ----------------------------------------------
-echo "ORACLE_HOME       : $ORACLE_HOME"
+#echo "ORACLE_HOME       : $ORACLE_HOME"
 
 cp -pvf $SCRIPT_DIR/oracle_rdbms_config_sample.conf /tmp
 cp -pvf $SCRIPT_DIR/120_update_db_config.sh /tmp
