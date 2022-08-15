@@ -24,19 +24,24 @@ if [ -z "$GREP" ]; then GREP=/usr/bin/grep; fi
 if [ ! -f "$GREP" ]; then GREP=/bin/grep; fi
 
 
-run_scripts_primary() {
-    # /tmp/080_prep_dg.sh
-    /bin/bash -c "sudo /tmp/setup_cdb1.sh configure"
-    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/210_change_sys_password.sh"
-    /bin/bash -c "/tmp/190_update_db_config.sh"
-    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/310_copy_tns_files_primary.sh"
-    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/120_dg_broker_start.sh"
+run_scripts_standby() {
+    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/410_copy_tns_files_standby.sh"
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/110_restart_listener.sh"
 
+    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/420_ora_dg_mkdir.sh"
+    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/430_ora_dg_orapwd.sh"
+    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/440_startup_nomount.sh"
+    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/450_rman_connect_and_restore.sh"
+    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/120_dg_broker_start.sh"
+
+    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/470_dgmgrl_config.sh"
+    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/show_config.sh"
+
 }
+
 #prep_dg_01
 #cat /tmp/prep_dg.log
 
-run_scripts_primary
+run_scripts_standby
 
 exit 0
