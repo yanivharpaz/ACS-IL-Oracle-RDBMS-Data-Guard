@@ -12,9 +12,9 @@ then
 fi
 
 # Set environment from arguments
-export ORACLE_SID = $1
-export PRIMARY_HOSTNAME = $2
-export STANDBY_HOSTNAME = $3
+export ORACLE_SID=$1
+export PRIMARY_HOSTNAME=$2
+export STANDBY_HOSTNAME=$3
 
 # echo arguments
 echo "ORACLE_SID: $ORACLE_SID"
