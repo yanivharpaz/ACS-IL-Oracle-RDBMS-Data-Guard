@@ -11,15 +11,22 @@ then
     exit 1
 fi
 
+echo ----------------------------------------------
+echo | prepare data guard scripts                 |
+echo ----------------------------------------------
+
 # Set environment from arguments
 export ORACLE_SID=$1
 export PRIMARY_HOSTNAME=$2
 export STANDBY_HOSTNAME=$3
 
 # echo arguments
-echo "ORACLE_SID: $ORACLE_SID"
-echo "PRIMARY_HOSTNAME: $PRIMARY_HOSTNAME"
-echo "STANDBY_HOSTNAME: $STANDBY_HOSTNAME"
+echo ----------------------------------------------
+echo "Arguments:"
+echo "ORACLE_SID       : $ORACLE_SID"
+echo "PRIMARY_HOSTNAME : $PRIMARY_HOSTNAME"
+echo "STANDBY_HOSTNAME : $STANDBY_HOSTNAME"
+echo ----------------------------------------------
 
 cp -pvf $SCRIPT_DIR/oracle_rdbms_config_sample.conf /tmp
 chmod 666 /tmp/oracle_rdbms_config_sample.conf
