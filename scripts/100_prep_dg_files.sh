@@ -1,7 +1,11 @@
 #!/bin/bash
 
+NEW_CONFIG_NAME="oracle_rdbms_config_sample.conf"
+NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
 
-export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
+. "$NEW_CONFIGURATION"
+
+#export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
@@ -26,10 +30,12 @@ echo "ORACLE_SID       : $ORACLE_SID"
 echo "PRIMARY_HOSTNAME : $PRIMARY_HOSTNAME"
 echo "STANDBY_HOSTNAME : $STANDBY_HOSTNAME"
 echo ----------------------------------------------
+echo "ORACLE_HOME       : $ORACLE_HOME"
 
 cp -pvf $SCRIPT_DIR/oracle_rdbms_config_sample.conf /tmp
+cp -pvf $SCRIPT_DIR/120_update_db_config.sh /tmp
 chmod 666 /tmp/oracle_rdbms_config_sample.conf
-
+chmod 777 /tmp/120_update_db_config.sh
 
 # General exports and vars
 export PATH=$ORACLE_HOME/bin:$PATH
