@@ -296,5 +296,8 @@ copy_tns_files_standby
 dgmgrl_sql_script
 dgmgrl_show_config
 
+echo "----------------------------------------------"
+echo "Data guard scripts are ready. "
+
 exit 0
 
