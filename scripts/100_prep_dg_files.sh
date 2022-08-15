@@ -17,7 +17,7 @@ cp -pvf $SCRIPT_DIR/190_update_db_config.sh /tmp
 cp -pvf $SCRIPT_DIR/200_primary_dg_setup.sh /tmp
 cp -pvf $SCRIPT_DIR/300_standby_dg_setup.sh /tmp
 chmod 666 /tmp/oracle_rdbms_config_sample.conf
-chmod 777 /tmp/120_update_db_config.sh
+chmod 777 /tmp/190_update_db_config.sh
 chmod 777 /tmp/200_primary_dg_setup.sh
 chmod 777 /tmp/300_standby_dg_setup.sh
 
