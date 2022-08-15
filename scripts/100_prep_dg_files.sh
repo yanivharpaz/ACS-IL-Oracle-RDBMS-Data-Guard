@@ -10,6 +10,15 @@ then
     exit 1
 fi
 
+cp -pvf $SCRIPT_DIR/oracle_rdbms_config_sample.conf /tmp
+cp -pvf $SCRIPT_DIR/190_update_db_config.sh /tmp
+cp -pvf $SCRIPT_DIR/200_primary_dg_setup.sh /tmp
+cp -pvf $SCRIPT_DIR/300_standby_dg_setup.sh /tmp
+chmod 666 /tmp/oracle_rdbms_config_sample.conf
+chmod 777 /tmp/120_update_db_config.sh
+chmod 777 /tmp/200_primary_dg_setup.sh
+chmod 777 /tmp/300_standby_dg_setup.sh
+
 echo "Reading configuration"
 NEW_CONFIG_NAME="oracle_rdbms_config_sample.conf"
 NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
@@ -34,18 +43,8 @@ echo "STANDBY_HOSTNAME : $STANDBY_HOSTNAME"
 echo ----------------------------------------------
 #echo "ORACLE_HOME       : $ORACLE_HOME"
 
-export ORACLE_PRIMARY_SID=CDB1
+export ORACLE_PRIMARY_SID=$ORACLE_SID 
 export ORACLE_PDB_SID=PDB1
-
-
-cp -pvf $SCRIPT_DIR/oracle_rdbms_config_sample.conf /tmp
-cp -pvf $SCRIPT_DIR/190_update_db_config.sh /tmp
-cp -pvf $SCRIPT_DIR/200_primary_dg_setup.sh /tmp
-cp -pvf $SCRIPT_DIR/300_standby_dg_setup.sh /tmp
-chmod 666 /tmp/oracle_rdbms_config_sample.conf
-chmod 777 /tmp/120_update_db_config.sh
-chmod 777 /tmp/200_primary_dg_setup.sh
-chmod 777 /tmp/300_standby_dg_setup.sh
 
 # General exports and vars
 export PATH=$ORACLE_HOME/bin:$PATH

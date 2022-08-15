@@ -51,6 +51,8 @@ run_scripts_standby() {
 
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/470_dgmgrl_config.sh"
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/show_config.sh"
+    sleep 10
+    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/show_config.sh"
 
 }
 
