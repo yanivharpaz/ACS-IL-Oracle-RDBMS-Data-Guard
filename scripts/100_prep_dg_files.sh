@@ -1,26 +1,25 @@
 #!/bin/bash
 
-
 echo "----------------------------------------------"
 echo "| prepare data guard scripts                 |"
 echo "----------------------------------------------"
-
-echo "Reading configuration"
-NEW_CONFIG_NAME="oracle_rdbms_config_sample.conf"
-NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
-
-. "$NEW_CONFIGURATION"
-
-echo "ORACLE_HOME       : $ORACLE_HOME"
-#export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
-
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 if [ $# -ne 3 ]
 then
     echo "Usage: sudo $0 [ ORACLE_SID ] [ PRIMARY_HOSTNAME ] [ STANDBY_HOSTNAME ] "
     exit 1
 fi
+
+echo "Reading configuration"
+NEW_CONFIG_NAME="oracle_rdbms_config_sample.conf"
+NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
+
+. "$NEW_CONFIGURATION" $ORACLE_SID
+
+echo "ORACLE_HOME       : $ORACLE_HOME"
+#export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Set environment from arguments
 export ORACLE_SID=$1
@@ -34,6 +33,10 @@ echo "PRIMARY_HOSTNAME : $PRIMARY_HOSTNAME"
 echo "STANDBY_HOSTNAME : $STANDBY_HOSTNAME"
 echo ----------------------------------------------
 #echo "ORACLE_HOME       : $ORACLE_HOME"
+
+export ORACLE_PRIMARY_SID=CDB1
+export ORACLE_PDB_SID=PDB1
+
 
 cp -pvf $SCRIPT_DIR/oracle_rdbms_config_sample.conf /tmp
 cp -pvf $SCRIPT_DIR/120_update_db_config.sh /tmp
