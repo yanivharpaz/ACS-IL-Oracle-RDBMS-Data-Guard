@@ -48,14 +48,6 @@ DBCA=$ORACLE_HOME/bin/dbca
 NETCA=$ORACLE_HOME/bin/netca
 ORACLE_OWNER=oracle
 RETVAL=0
-#CONFIG_NAME="oracledb_$ORACLE_SID-$ORACLE_VERSION.conf"
-#CONFIGURATION="/etc/sysconfig/$CONFIG_NAME"
-
-NEW_CONFIG_NAME="oracle_rdbms_config_sample.conf"
-NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
-
-. "$NEW_CONFIGURATION"
-echo "SYS_PASSWORD = " $SYS_PASSWORD
 
 prep_standby_init_ora() {
     # create init.ora file for the standby database
