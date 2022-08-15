@@ -1,10 +1,18 @@
 #!/bin/bash
 
+
+echo "----------------------------------------------"
+echo "| prepare data guard scripts                 |"
+echo "----------------------------------------------"
+
+echo "Reading configuration"
 NEW_CONFIG_NAME="oracle_rdbms_config_sample.conf"
 NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
 
 . "$NEW_CONFIGURATION"
 
+echo "ORACLE_HOME       : $ORACLE_HOME"
+echo "ORACLE_SID        : $ORACLE_SID"
 #export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -14,10 +22,6 @@ then
     echo "Usage: sudo $0 [ ORACLE_SID ] [ PRIMARY_HOSTNAME ] [ STANDBY_HOSTNAME ] "
     exit 1
 fi
-
-echo "----------------------------------------------"
-echo "| prepare data guard scripts                 |"
-echo "----------------------------------------------"
 
 # Set environment from arguments
 export ORACLE_SID=$1
