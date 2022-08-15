@@ -1,0 +1,16 @@
+CDB1 =
+(DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = vm-lin-jul1061)(PORT = 1521))
+    (CONNECT_DATA =
+    (SERVER = DEDICATED)
+    (SID    = CDB1)(UR=A)
+    )
+)
+CDB1_STBY =
+(DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = vm-lin-jul1062)(PORT = 1521))
+    (CONNECT_DATA =
+    (SERVER = DEDICATED)
+    (SID    = CDB1)(UR=A)
+    )
+)

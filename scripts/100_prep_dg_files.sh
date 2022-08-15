@@ -12,7 +12,6 @@ NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
 . "$NEW_CONFIGURATION"
 
 echo "ORACLE_HOME       : $ORACLE_HOME"
-echo "ORACLE_SID        : $ORACLE_SID"
 #export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
