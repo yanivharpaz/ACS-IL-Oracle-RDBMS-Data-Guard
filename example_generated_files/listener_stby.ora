@@ -1,7 +1,7 @@
 LISTENER =
 (DESCRIPTION_LIST =
     (DESCRIPTION =
-    (ADDRESS = (PROTOCOL = TCP)(HOST = vm-lin-jul1062)(PORT = 1521))
+    (ADDRESS = (PROTOCOL = TCP)(HOST = vm-standby)(PORT = 1521))
     (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))
     )
 )
