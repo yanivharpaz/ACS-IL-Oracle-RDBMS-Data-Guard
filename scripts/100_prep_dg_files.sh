@@ -253,6 +253,12 @@ EOF
     chmod +x $ORACLE_DGMGRL_SHOW_CONFIG_BASH
 }
 
+if [ $# -ne 3 ]
+then
+    echo "Usage: sudo $0 [ ORACLE_SID ] [ PRIMARY_HOSTNAME ] [ STANDBY_HOSTNAME ] "
+    exit 1
+fi
+
 prep_standby_init_ora
 create_primary_listener_ora
 create_tnsnames_ora
@@ -271,4 +277,5 @@ copy_tns_files_standby
 dgmgrl_sql_script
 dgmgrl_show_config
 
+exit 0
 
