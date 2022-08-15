@@ -1,11 +1,29 @@
 #!/bin/bash
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
-cp -pvf $SCRIPT_DIR/oracle_rdbms_config_sample.conf /tmp
-sudo chmod 666 /tmp/oracle_rdbms_config_sample.conf
 
 export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+if [ $# -ne 3 ]
+then
+    echo "Usage: sudo $0 [ ORACLE_SID ] [ PRIMARY_HOSTNAME ] [ STANDBY_HOSTNAME ] "
+    exit 1
+fi
+
+# Set environment from arguments
+export ORACLE_SID = $1
+export PRIMARY_HOSTNAME = $2
+export STANDBY_HOSTNAME = $3
+
+# echo arguments
+echo "ORACLE_SID: $ORACLE_SID"
+echo "PRIMARY_HOSTNAME: $PRIMARY_HOSTNAME"
+echo "STANDBY_HOSTNAME: $STANDBY_HOSTNAME"
+
+cp -pvf $SCRIPT_DIR/oracle_rdbms_config_sample.conf /tmp
+chmod 666 /tmp/oracle_rdbms_config_sample.conf
+
 
 # General exports and vars
 export PATH=$ORACLE_HOME/bin:$PATH
@@ -22,6 +40,7 @@ NEW_CONFIG_NAME="oracle_rdbms_config_sample.conf"
 NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
 
 . "$NEW_CONFIGURATION"
+echo "SYS_PASSWORD = " $SYS_PASSWORD
 
 prep_standby_init_ora() {
     # create init.ora file for the standby database
@@ -252,12 +271,6 @@ dgmgrl -silent sys/$SYS_PASSWORD@$ORACLE_SID @$ORACLE_DGMGRL_SHOW_CONFIG
 EOF
     chmod +x $ORACLE_DGMGRL_SHOW_CONFIG_BASH
 }
-
-if [ $# -ne 3 ]
-then
-    echo "Usage: sudo $0 [ ORACLE_SID ] [ PRIMARY_HOSTNAME ] [ STANDBY_HOSTNAME ] "
-    exit 1
-fi
 
 prep_standby_init_ora
 create_primary_listener_ora
