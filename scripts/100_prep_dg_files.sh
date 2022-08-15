@@ -10,6 +10,8 @@ then
     exit 1
 fi
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 cp -pvf $SCRIPT_DIR/oracle_rdbms_config_sample.conf /tmp
 cp -pvf $SCRIPT_DIR/190_update_db_config.sh /tmp
 cp -pvf $SCRIPT_DIR/200_primary_dg_setup.sh /tmp
@@ -28,7 +30,6 @@ NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
 echo "ORACLE_HOME       : $ORACLE_HOME"
 #export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Set environment from arguments
 export ORACLE_SID=$1
