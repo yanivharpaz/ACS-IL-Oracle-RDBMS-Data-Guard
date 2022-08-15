@@ -9,7 +9,7 @@ LISTENER =
 SID_LIST_LISTENER =
 (SID_LIST       =
     (SID_DESC     =
-    (GLOBAL_DBNAME = CDB1_DGMGRL)
+    (GLOBAL_DBNAME = ORACLE_SID_DGMGRL)
     (ORACLE_HOME   = /opt/oracle/product/19c/dbhome_1)
     (SID_NAME      = CDB1)
     )
