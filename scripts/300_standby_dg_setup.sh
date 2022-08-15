@@ -1,6 +1,21 @@
 #!/bin/bash
 #
-export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
+
+if [ $# -ne 1 ]
+then
+    echo "Usage: sudo $0 [ ORACLE_SID ] "
+    exit 1
+fi
+
+
+echo "Reading configuration"
+NEW_CONFIG_NAME="oracle_rdbms_config_sample.conf"
+NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
+
+. "$NEW_CONFIGURATION" $ORACLE_SID
+
+echo "ORACLE_HOME       : $ORACLE_HOME"
+
 
 # General exports and vars
 export PATH=$ORACLE_HOME/bin:$PATH
