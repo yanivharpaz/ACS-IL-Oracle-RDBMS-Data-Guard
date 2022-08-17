@@ -22,6 +22,7 @@ chmod 666 /tmp/oracle_rdbms_config_sample.conf
 chmod 777 /tmp/190_update_db_config.sh
 chmod 777 /tmp/200_primary_dg_setup.sh
 chmod 777 /tmp/300_standby_dg_setup.sh
+chmod 777 /tmp/110_open_port.sh
 
 echo "Reading configuration"
 NEW_CONFIG_NAME="oracle_rdbms_config_sample.conf"
