@@ -14,3 +14,4 @@ echo "Opening port: $PORT_TO_OPEN"
 echo sudo /usr/sbin/iptables -I INPUT -p tcp --dport $PORT_TO_OPEN -j ACCEPT -m comment --comment "Allow Oracle RDBMS"
 sudo /usr/sbin/iptables -I INPUT -p tcp --dport $PORT_TO_OPEN -j ACCEPT -m comment --comment "Allow Oracle RDBMS"
 
+exit 0
