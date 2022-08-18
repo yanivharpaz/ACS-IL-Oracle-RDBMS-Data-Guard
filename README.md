@@ -1,6 +1,9 @@
 # ACS-IL-Oracle-RDBMS-Data-Guard
 Oracle database data guard automation
 
+
+## Use this guide / scripts only for testing and learning purpose
+
 ## Run the prep script
 ```
 sudo ./misc/100_prep_dg_files.sh [ORACLE_SID] [primary_host] [standby_host]
