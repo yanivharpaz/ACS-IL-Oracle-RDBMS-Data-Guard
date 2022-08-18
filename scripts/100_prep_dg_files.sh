@@ -4,9 +4,9 @@ echo "----------------------------------------------"
 echo "| prepare data guard scripts                 |"
 echo "----------------------------------------------"
 
-if [ $# -ne 3 ]
+if [ $# -ne 4 ]
 then
-    echo "Usage: sudo $0 [ ORACLE_SID ] [ PRIMARY_HOSTNAME ] [ STANDBY_HOSTNAME ] "
+    echo "Usage: sudo $0 [ ORACLE_SID ] [ STANDBY UNIQUE NAME ] [ PRIMARY_HOSTNAME ] [ STANDBY_HOSTNAME ] "
     exit 1
 fi
 
@@ -36,14 +36,16 @@ echo "ORACLE_HOME       : $ORACLE_HOME"
 
 # Set environment from arguments
 export ORACLE_SID=$1
-export PRIMARY_HOSTNAME=$2
-export STANDBY_HOSTNAME=$3
+export STANDBY_UNIQUE_NAME=$2
+export PRIMARY_HOSTNAME=$3
+export STANDBY_HOSTNAME=$4
 
 # echo arguments
 echo "Arguments:"
-echo "ORACLE_SID       : $ORACLE_SID"
-echo "PRIMARY_HOSTNAME : $PRIMARY_HOSTNAME"
-echo "STANDBY_HOSTNAME : $STANDBY_HOSTNAME"
+echo "ORACLE_SID          : $ORACLE_SID"
+echo "STANDBY_UNIQUE_NAME : $STANDBY_UNIQUE_NAME"
+echo "PRIMARY_HOSTNAME    : $PRIMARY_HOSTNAME"
+echo "STANDBY_HOSTNAME    : $STANDBY_HOSTNAME"
 echo ----------------------------------------------
 #echo "ORACLE_HOME       : $ORACLE_HOME"
 
@@ -79,7 +81,7 @@ $ORACLE_PRIMARY_SID =
     (SID    = $ORACLE_PRIMARY_SID)(UR=A)
     )
 )
-$ORACLE_STANDBY_TNS =
+$STANDBY_UNIQUE_NAME =
 (DESCRIPTION =
     (ADDRESS = (PROTOCOL = TCP)(HOST = $STANDBY_HOSTNAME)(PORT = $LISTENER_PORT))
     (CONNECT_DATA =
@@ -129,7 +131,7 @@ LISTENER =
 SID_LIST_LISTENER =
 (SID_LIST       =
     (SID_DESC     =
-    (GLOBAL_DBNAME = $ORACLE_STANDBY_DGMGRL)
+    (GLOBAL_DBNAME = $ORACLE_PRIMARY_DGMGRL)
     (ORACLE_HOME   = $ORACLE_HOME)
     (SID_NAME      = $ORACLE_PRIMARY_SID)
     )
@@ -147,7 +149,7 @@ DUPLICATE TARGET DATABASE
   FROM ACTIVE DATABASE
   DORECOVER
   SPFILE
-    SET db_unique_name='$ORACLE_STANDBY_TNS' COMMENT 'Is standby'
+    SET db_unique_name='$STANDBY_UNIQUE_NAME' COMMENT 'Is standby'
   NOFILENAMECHECK;
 EOF
 }
@@ -156,7 +158,7 @@ create_rman_restore_step() {
     # create rman_login.ora file
     echo "creating rman_login.ora file -> $ORACLE_RMAN_LOGIN"
     cat > $ORACLE_RMAN_LOGIN << EOF
-rman TARGET sys/$SYS_PASSWORD@$ORACLE_PRIMARY_SID AUXILIARY sys/$SYS_PASSWORD@$ORACLE_STANDBY_TNS cmdfile=$ORACLE_RMAN_CMD
+rman TARGET sys/$SYS_PASSWORD@$ORACLE_PRIMARY_SID AUXILIARY sys/$SYS_PASSWORD@$STANDBY_UNIQUE_NAME cmdfile=$ORACLE_RMAN_CMD
 EOF
 chmod +x $ORACLE_RMAN_LOGIN
 }
@@ -263,7 +265,7 @@ dgmgrl_sql_script() {
     echo "creating dgmgrl sql script -> $ORACLE_DGMGRL_SQL_SCRIPT"
     cat > $ORACLE_DGMGRL_SQL_SCRIPT << EOF
 CREATE CONFIGURATION my_dg_config AS PRIMARY DATABASE IS $ORACLE_SID CONNECT IDENTIFIER IS $ORACLE_SID;
-ADD DATABASE $ORACLE_STANDBY_TNS AS CONNECT IDENTIFIER IS $ORACLE_STANDBY_TNS MAINTAINED AS PHYSICAL;
+ADD DATABASE $STANDBY_UNIQUE_NAME AS CONNECT IDENTIFIER IS $STANDBY_UNIQUE_NAME MAINTAINED AS PHYSICAL;
 ENABLE CONFIGURATION;
 EOF
     chmod 666 $ORACLE_DGMGRL_SQL_SCRIPT
