@@ -51,6 +51,7 @@ echo ----------------------------------------------
 
 export ORACLE_PRIMARY_SID=$ORACLE_SID 
 export ORACLE_PDB_SID=PDB1
+export ORACLE_STANDBY_DGMGRL=$STANDBY_UNIQUE_NAME\_DGMGRL
 
 # General exports and vars
 export PATH=$ORACLE_HOME/bin:$PATH
@@ -131,7 +132,7 @@ LISTENER =
 SID_LIST_LISTENER =
 (SID_LIST       =
     (SID_DESC     =
-    (GLOBAL_DBNAME = $ORACLE_PRIMARY_DGMGRL)
+    (GLOBAL_DBNAME = $ORACLE_STANDBY_DGMGRL)
     (ORACLE_HOME   = $ORACLE_HOME)
     (SID_NAME      = $ORACLE_PRIMARY_SID)
     )
