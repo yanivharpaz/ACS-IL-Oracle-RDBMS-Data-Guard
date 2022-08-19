@@ -44,6 +44,7 @@ run_scripts_primary() {
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/310_copy_tns_files_primary.sh"
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/120_dg_broker_start.sh"
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/110_restart_listener.sh"
+    $SU -s /bin/bash  $ORACLE_OWNER -c "/usr/bin/cp -pv $ORACLE_HOME/dbs/orapw* /tmp"
 
 }
 #prep_dg_01
