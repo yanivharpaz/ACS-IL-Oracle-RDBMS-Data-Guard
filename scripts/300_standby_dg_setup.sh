@@ -46,7 +46,7 @@ run_scripts_standby() {
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/110_restart_listener.sh"
 
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/420_ora_dg_mkdir.sh"
-    $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/430_ora_dg_orapwd.sh"
+    # $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/430_ora_dg_orapwd.sh"
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/440_startup_nomount.sh"
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/450_rman_connect_and_restore.sh"
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/120_dg_broker_start.sh"
