@@ -13,6 +13,7 @@ sudo ./misc/100_prep_dg_files.sh [ORACLE_SID] [primary_host] [standby_host]
 ## Prerequisites for the data guard creation
 
 * Open port between the servers (default 1521)
+* Oracle RDBMS software installed on both primary and standby
 * Copy the password file from the primary to the secondary ($ORACLE_HOME/dbs)
 
 ## Steps on the creation process
