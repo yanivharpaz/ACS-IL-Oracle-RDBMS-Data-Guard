@@ -13,8 +13,6 @@ NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
 
 . "$NEW_CONFIGURATION" $ORACLE_SID
 
-echo "ORACLE_HOME       : $ORACLE_HOME"
-
 # export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
 
 # General exports and vars
@@ -36,7 +34,8 @@ if [ ! -f "$GREP" ]; then GREP=/bin/grep; fi
 
 
 run_scripts_primary() {
-    export \$ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
+    export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
+    echo "ORACLE_HOME       : $ORACLE_HOME"
     /bin/bash -c "sudo /tmp/setup_cdb1.sh configure"
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/210_change_sys_password.sh"
     $SU -s /bin/bash  $ORACLE_OWNER -c "/tmp/110_restart_listener.sh"
