@@ -1,11 +1,21 @@
 #!/bin/bash
 #
 
+if [ $# -ne 1 ]
+then
+    echo "Usage: sudo $0 [ ORACLE_SID ] "
+    exit 1
+fi
 
+
+echo "Reading configuration"
 NEW_CONFIG_NAME="oracle_rdbms_config_sample.conf"
 NEW_CONFIGURATION="/tmp/$NEW_CONFIG_NAME"
 
-. "$NEW_CONFIGURATION"
+. "$NEW_CONFIGURATION" $ORACLE_SID
+
+echo "ORACLE_HOME       : $ORACLE_HOME"
+
 
 # export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
 
@@ -106,10 +116,9 @@ prep_dg_01()
             ALTER SYSTEM SWITCH LOGFILE;
             select 'Oracle SID: $ORACLE_SID' AS SID FROM DUAL;
 
-            ALTER DATABASE ADD STANDBY LOGFILE ('$ORACLE_REDO_LOCATION/standby_redo01.log') SIZE 200M;
-            ALTER DATABASE ADD STANDBY LOGFILE ('$ORACLE_REDO_LOCATION/standby_redo02.log') SIZE 200M;
-            ALTER DATABASE ADD STANDBY LOGFILE ('$ORACLE_REDO_LOCATION/standby_redo03.log') SIZE 200M;
-            ALTER DATABASE ADD STANDBY LOGFILE ('$ORACLE_REDO_LOCATION/standby_redo04.log') SIZE 200M;
+            ALTER DATABASE ADD STANDBY LOGFILE THREAD 1 ('$ORACLE_REDO_LOCATION/standby_redo01.log') SIZE $STANDBY_REDO_LOG_SIZE;
+            ALTER DATABASE ADD STANDBY LOGFILE THREAD 1 ('$ORACLE_REDO_LOCATION/standby_redo02.log') SIZE $STANDBY_REDO_LOG_SIZE;
+            ALTER DATABASE ADD STANDBY LOGFILE THREAD 1 ('$ORACLE_REDO_LOCATION/standby_redo03.log') SIZE $STANDBY_REDO_LOG_SIZE;
 
             ALTER DATABASE FLASHBACK ON;
             ALTER SYSTEM SET STANDBY_FILE_MANAGEMENT=AUTO;
@@ -118,7 +127,7 @@ prep_dg_01()
             select member from v\\\$logfile;
             spool off
             exit;
-            EOF" 
+            EOF"
         RETVAL1=$?
         if [ $RETVAL1 -eq 0 ]
         then
