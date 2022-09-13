@@ -181,6 +181,7 @@ chmod +x $ORACLE_DG_BROKER_START_BASH
 mkdir_commands() {
     # create commands directory
     echo "creating commands directory -> $ORACLE_COMMANDS_DIR"
+    echo "into $ORACLE_INSTANCE_LOCATION ($ORACLE_BASE $ORACLE_DATA_LOCATION)"
     cat > $ORACLE_COMMANDS_DIR << EOF
 mkdir -p $ORACLE_INSTANCE_LOCATION/archivelog
 mkdir -p $ORACLE_INSTANCE_LOCATION/autobackup
