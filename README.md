@@ -43,7 +43,7 @@ sudo ./misc/100_prep_dg_files.sh [ORACLE_SID] [primary_host] [standby_host]
 
 ### Test with switchover between the primary and the standby (and back)  
 
-### You can configure the ORACLE_HOME and ORACLE_BASE on the file  
+#### You can configure the ORACLE_HOME and ORACLE_BASE on this file:    
 [scripts/oracle_rdbms_config_sample.conf](https://github.com/yanivharpaz/ACS-IL-Oracle-RDBMS-Data-Guard/blob/main/scripts/oracle_rdbms_config_sample.conf)
 
 
