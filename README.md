@@ -16,6 +16,7 @@ sudo ./misc/100_prep_dg_files.sh [ORACLE_SID] [primary_host] [standby_host]
 * Open port between the servers (default 1521)
 * Oracle RDBMS software installed on both primary and standby
 * Copy the password file from the primary to the secondary ($ORACLE_HOME/dbs)
+* Be familiar with the sys password on the primary
 
 ## Steps on the creation process
 
@@ -41,6 +42,9 @@ sudo ./misc/100_prep_dg_files.sh [ORACLE_SID] [primary_host] [standby_host]
   * enable configuration  
 
 ### Test with switchover between the primary and the standby (and back)  
+
+### You can configure the ORACLE_HOME and ORACLE_BASE on the file  
+[scripts/oracle_rdbms_config_sample.conf](https://github.com/yanivharpaz/ACS-IL-Oracle-RDBMS-Data-Guard/blob/main/scripts/oracle_rdbms_config_sample.conf)
 
 
 ### Usage example on YouTube: https://youtu.be/5xYJvy7Pvgc
